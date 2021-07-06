@@ -98,6 +98,16 @@ app.put('/api/products/:id', (req, res) => {
 
 app.patch('/api/products/:id', (req, res) => {
 
+    //VALIDATION
+
+    const {error} = validationForPatch(req.body);
+    
+    if(error){
+       return res.status(400).json({
+            message : error.details[0].message
+        });
+    };
+
     const index = products.findIndex(prod => prod.id === req.params.id);
 
     if(index === -1){
@@ -151,6 +161,15 @@ function validation (body){
     const schema = Joi.object ({
         name: Joi.string().min(3).max(20).required(),
         price: Joi.number().required()
+    });
+
+    return schema.validate(body);
+}
+
+function validationForPatch (body){
+    const schema = Joi.object ({
+        name: Joi.string().min(3).max(20),
+        price: Joi.number()
     });
 
     return schema.validate(body);
