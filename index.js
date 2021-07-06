@@ -39,6 +39,12 @@ app.get('/api/products/:id', (req, res) => {
 
 //insert a product
 
+app.use(express.json());
+
+app.post('/api/products', (req, res) => {
+    res.send(req.body);
+})
+
 //update a specific product(PUT)
 
 //update a specific product(PATCH)
