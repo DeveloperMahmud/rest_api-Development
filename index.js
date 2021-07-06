@@ -145,6 +145,8 @@ app.delete('/api/products', (req, res) => {
 });
 
 
+//FUNCTIONS
+
 function validation (body){
     const schema = Joi.object ({
         name: Joi.string().min(3).max(20).required(),
