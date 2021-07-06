@@ -26,15 +26,15 @@ app.get('/api/products',(req, res) => {
 //show a specific products
 app.get('/api/products/:id', (req, res) => {
     const {id} = req.params;
-    const products = products.find(prod => prod.id === id);
+    const product = products.find(prod => prod.id === id);
 
-    if(!products){
+    if(!product){
         return res.status(404).json({
             error: 'No Products Found With this ID'
         })
     }
     
-    return res.json(products);
+    return res.json(product);
 })
 
 //insert a product
