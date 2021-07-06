@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const { v4 : uuidv4 } = require('uuid');
+const Joi = require('joi');
 
 
 
@@ -45,6 +46,15 @@ app.get('/api/products/:id', (req, res) => {
 app.use(express.json());
 
 app.post('/api/products', (req, res) => {
+
+    const {error} = validation(req.body);
+    
+    if(error){
+       return res.status(400).json({
+            message : error.details[0].message
+        });
+    };
+
     const product = {
         id : uuidv4(),
         name : req.body.name,
@@ -64,5 +74,14 @@ app.post('/api/products', (req, res) => {
 
 //Delete all products
 
+
+function validation (body){
+    const schema = Joi.object ({
+        name: Joi.string().min(3).max(20).required(),
+        price: Joi.number().required()
+    });
+
+    return schema.validate(body);
+}
 
 app.listen(3000, () => console.log('Server is running at port 3000'));
