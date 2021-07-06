@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const { v4 : uuidv4 } = require('uuid');
+
+
 
 app.get('/', (req, res) => {
     res.send('<h1>Hello Nice World..</h1>')
@@ -42,7 +45,15 @@ app.get('/api/products/:id', (req, res) => {
 app.use(express.json());
 
 app.post('/api/products', (req, res) => {
-    res.send(req.body);
+    const product = {
+        id : uuidv4(),
+        name : req.body.name,
+        price : req.body.price
+    }
+
+    products.push(product);
+
+    return res.json(product);
 })
 
 //update a specific product(PUT)
