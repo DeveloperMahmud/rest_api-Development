@@ -6,7 +6,7 @@ const Joi = require('joi');
 
 
 app.get('/', (req, res) => {
-    res.send('<h1>Hello Nice World..</h1>')
+    res.status(200).send('<h1>Hello Nice World..</h1>')
 })
 
 const products = [
@@ -38,7 +38,7 @@ app.get('/api/products/:id', (req, res) => {
         })
     }
     
-    return res.json(product);
+    return res.status(200).json(product);
 })
 
 //insert a product
@@ -63,7 +63,7 @@ app.post('/api/products', (req, res) => {
 
     products.push(product);
 
-    return res.json(product);
+    return res.status(201).json(product);
 })
 
 //update a specific product(PUT)
@@ -89,7 +89,7 @@ app.put('/api/products/:id', (req, res) => {
     products[index].name = req.body.name;
     products[index].price = req.body.price;
 
-    return res.json({
+    return res.status(200).json({
         product : products[index] 
     });
 });
@@ -122,7 +122,7 @@ app.patch('/api/products/:id', (req, res) => {
     };
     products[index] = updatedProduct;
 
-    return res.json(updatedProduct);
+    return res.status(200).json(updatedProduct);
 });
 
 //Delete a specific product
@@ -141,7 +141,7 @@ app.delete('/api/products/:id', (req, res) => {
 
     products.splice(index, 1);
 
-    res.json(product);
+    res.status(200).json(product);
 
 });    
 
@@ -150,7 +150,7 @@ app.delete('/api/products/:id', (req, res) => {
 app.delete('/api/products', (req, res) => {
 
     products.splice(0);
-    return res.json(products);
+    return res.status(200).json(products);
 
 });
 
